@@ -1,0 +1,162 @@
+[gd_scene load_steps=16 format=3 uid="uid://bo4j3rpvppuh6"]
+
+[ext_resource type="Script" uid="uid://p15avqr42861" path="res://scripts/SpinCube.gd" id="1_otq7g"]
+[ext_resource type="Script" uid="uid://b0m6ngbtxor8m" path="res://scripts/SpinCubeTarget.gd" id="2_n64w0"]
+
+[sub_resource type="Environment" id="Environment_0wfyh"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_otq7g"]
+rim_tint = 0.35
+disable_receive_shadows = true
+grow = true
+grow_amount = 0.025
+
+[sub_resource type="BoxMesh" id="BoxMesh_sugp2"]
+material = SubResource("StandardMaterial3D_otq7g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n64w0"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_locvo"]
+material = SubResource("StandardMaterial3D_n64w0")
+text = "Front"
+depth = 0.01
+
+[sub_resource type="TextMesh" id="TextMesh_s7w48"]
+material = SubResource("StandardMaterial3D_n64w0")
+text = "Left"
+depth = 0.01
+
+[sub_resource type="TextMesh" id="TextMesh_aabyu"]
+material = SubResource("StandardMaterial3D_n64w0")
+text = "Right"
+depth = 0.01
+
+[sub_resource type="TextMesh" id="TextMesh_otq7g"]
+material = SubResource("StandardMaterial3D_n64w0")
+text = "Back"
+depth = 0.01
+
+[sub_resource type="TextMesh" id="TextMesh_n64w0"]
+material = SubResource("StandardMaterial3D_n64w0")
+text = "Top"
+depth = 0.01
+
+[sub_resource type="TextMesh" id="TextMesh_bm7w0"]
+material = SubResource("StandardMaterial3D_n64w0")
+text = "Bottom"
+depth = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_locvo"]
+transparency = 1
+shading_mode = 2
+albedo_color = Color(1, 0.748418, 0.974179, 0.709804)
+disable_receive_shadows = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_s7w48"]
+material = SubResource("StandardMaterial3D_locvo")
+size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aabyu"]
+size = Vector3(1, 0.1, 1)
+
+[node name="SpinCube" type="Node3D"]
+script = ExtResource("1_otq7g")
+
+[node name="CameraAnchor" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraAnchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.69894)
+environment = SubResource("Environment_0wfyh")
+current = true
+size = 2.0
+
+[node name="Indicator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00568467, 0.0080465, -0.00638604)
+
+[node name="Cube" type="MeshInstance3D" parent="Indicator"]
+mesh = SubResource("BoxMesh_sugp2")
+skeleton = NodePath("../..")
+
+[node name="Labels" type="Node3D" parent="Indicator"]
+
+[node name="Front" type="MeshInstance3D" parent="Indicator/Labels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.55)
+mesh = SubResource("TextMesh_locvo")
+skeleton = NodePath("../..")
+
+[node name="Left" type="MeshInstance3D" parent="Indicator/Labels"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.55, 0, 0)
+mesh = SubResource("TextMesh_s7w48")
+skeleton = NodePath("../..")
+
+[node name="Right" type="MeshInstance3D" parent="Indicator/Labels"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.55, 0, 0)
+mesh = SubResource("TextMesh_aabyu")
+skeleton = NodePath("../..")
+
+[node name="Back" type="MeshInstance3D" parent="Indicator/Labels"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.55)
+mesh = SubResource("TextMesh_otq7g")
+skeleton = NodePath("../..")
+
+[node name="Top" type="MeshInstance3D" parent="Indicator/Labels"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.55, 0)
+mesh = SubResource("TextMesh_n64w0")
+skeleton = NodePath("../..")
+
+[node name="Bottom" type="MeshInstance3D" parent="Indicator/Labels"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.55, 0)
+mesh = SubResource("TextMesh_bm7w0")
+skeleton = NodePath("../..")
+
+[node name="Targets" type="Node3D" parent="Indicator"]
+
+[node name="Front" type="StaticBody3D" parent="Indicator/Targets"]
+transform = Transform3D(0.8, 0, 0, 0, -3.49691e-08, -0.8, 0, 0.8, -3.49691e-08, 0, 0, 0.55)
+script = ExtResource("2_n64w0")
+
+[node name="Mesh" type="MeshInstance3D" parent="Indicator/Targets/Front"]
+visible = false
+mesh = SubResource("PlaneMesh_s7w48")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Indicator/Targets/Front"]
+shape = SubResource("BoxShape3D_aabyu")
+
+[node name="Top" type="StaticBody3D" parent="Indicator/Targets"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.0032506, 0.55, 0.0049212)
+script = ExtResource("2_n64w0")
+
+[node name="Mesh" type="MeshInstance3D" parent="Indicator/Targets/Top"]
+visible = false
+mesh = SubResource("PlaneMesh_s7w48")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Indicator/Targets/Top"]
+shape = SubResource("BoxShape3D_aabyu")
+
+[node name="Back" type="StaticBody3D" parent="Indicator/Targets"]
+transform = Transform3D(-0.8, 0.00053468, 0.000288554, -0.000288879, -0.000469529, -0.8, -0.000534504, -0.8, 0.000469729, 0, 0, -0.55)
+script = ExtResource("2_n64w0")
+target_rotation = Vector3(0, 180, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Indicator/Targets/Back"]
+visible = false
+mesh = SubResource("PlaneMesh_s7w48")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Indicator/Targets/Back"]
+shape = SubResource("BoxShape3D_aabyu")
+
+[connection signal="input_event" from="Indicator/Targets/Front" to="Indicator/Targets/Front" method="_on_input_event"]
+[connection signal="mouse_entered" from="Indicator/Targets/Front" to="Indicator/Targets/Front" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Indicator/Targets/Front" to="Indicator/Targets/Front" method="_on_mouse_exited"]
+[connection signal="update_target" from="Indicator/Targets/Front" to="." method="_on_front_update_target"]
+[connection signal="input_event" from="Indicator/Targets/Top" to="Indicator/Targets/Top" method="_on_input_event"]
+[connection signal="mouse_entered" from="Indicator/Targets/Top" to="Indicator/Targets/Top" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Indicator/Targets/Top" to="Indicator/Targets/Top" method="_on_mouse_exited"]
+[connection signal="update_target" from="Indicator/Targets/Top" to="." method="_on_front_update_target"]
+[connection signal="input_event" from="Indicator/Targets/Back" to="Indicator/Targets/Back" method="_on_input_event"]
+[connection signal="mouse_entered" from="Indicator/Targets/Back" to="Indicator/Targets/Back" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Indicator/Targets/Back" to="Indicator/Targets/Back" method="_on_mouse_exited"]
+[connection signal="update_target" from="Indicator/Targets/Back" to="." method="_on_front_update_target"]
