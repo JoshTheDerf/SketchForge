@@ -58,6 +58,35 @@ offset_right = 83.0
 offset_bottom = 31.0
 text = "Add Cube"
 
+[node name="PropertiesPanel" type="PanelContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_right = 0.0
+offset_left = 10
+offset_top = 10
+offset_right = 210
+offset_bottom = 150
+theme = ExtResource("uid://new_theme")
+visible = false
+
+[node name="VBox" type="VBoxContainer" parent="UI/PropertiesPanel"]
+offset_left = 5
+offset_top = 5
+offset_right = 205
+offset_bottom = 145
+
+[node name="Header" type="Label" parent="UI/PropertiesPanel/VBox"]
+offset_right = 200
+offset_bottom = 25
+text = "Selected Objects: 0"
+horizontal_alignment = 1
+
+[node name="ColorPicker" type="ColorPicker" parent="UI/PropertiesPanel/VBox"]
+offset_top = 30
+offset_right = 200
+offset_bottom = 140
+presets_visible = false
+
 [node name="RotationIndicator" type="SubViewportContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = 1
