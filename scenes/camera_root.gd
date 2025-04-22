@@ -6,6 +6,7 @@ signal rotation_updated(new_rotation: Vector3)
 
 func _on_control_gui_input(event: InputEvent) -> void:	
 	var mouse_click = event as InputEventMouseButton
+	# Handle right-click drag for rotation
 	if mouse_click and mouse_click.button_index == 2 and mouse_click.pressed:
 		is_rotating = true
 		
@@ -15,6 +16,13 @@ func _on_control_gui_input(event: InputEvent) -> void:
 	if !mouse_click and is_rotating:
 		rotate_object_local(Vector3(-1, 0, 0), event.relative.y / 100)
 		rotate(Vector3(0, -1, 0), event.relative.x / 100)
+		update()
+	
+	# Handle scroll wheel for zoom
+	if mouse_click and (mouse_click.button_index == MOUSE_BUTTON_WHEEL_UP or mouse_click.button_index == MOUSE_BUTTON_WHEEL_DOWN):
+		var zoom_speed = 0.2
+		var zoom_dir = -1 if mouse_click.button_index == MOUSE_BUTTON_WHEEL_UP else 1
+		$Camera.size = clamp($Camera.size + zoom_dir * zoom_speed * $Camera.size, 1.0, 100.0)
 		update()
 		
 func update():		
