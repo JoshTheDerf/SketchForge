@@ -40,6 +40,9 @@ size = Vector2(2, 2)
 [node name="Base" type="Node3D"]
 script = ExtResource("1_sugp2")
 
+[node name="SelectionHandler" type="Node" parent="."]
+script = ExtResource("uid://new_selection_handler_script")
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
