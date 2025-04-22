@@ -1,6 +1,8 @@
 extends Node3D
 
-var is_rotating = false
+var is_rotating := false
+var is_panning := false
+var pan_plane := Plane(Vector3.UP, 0)
 
 signal rotation_updated(new_rotation: Vector3)
 

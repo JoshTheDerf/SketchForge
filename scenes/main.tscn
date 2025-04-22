@@ -109,8 +109,14 @@ render_target_update_mode = 4
 
 [node name="SpinCube" parent="UI/RotationIndicator/Viewport" instance=ExtResource("2_jyhfs")]
 
-[node name="Gizmo" type="Node3D" parent="."]
+[node name="Gizmo" type="EditorNode3DGizmo" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73555, 0, 0)
+transform_mode = "LOCAL"
+snap_enabled = true
+snap_size = 0.25
+show_scale = true
+show_rotation = true
+show_translation = true
 script = ExtResource("2_0wfyh")
 metadata/_custom_type_script = "uid://e3f1ox6y6cvg"
 
