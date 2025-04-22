@@ -9,6 +9,8 @@ extends Node3D
 
 func _ready():
 	selection_handler.selection_changed.connect(_on_selection_changed)
+	$UI/PropertiesPanel/VBox/ColorPicker.color_changed.connect(_on_color_changed)
+	print("READY")
 
 func _on_selection_changed(selected: Array) -> void:
 	$Gizmo.clear_selection()
@@ -24,10 +26,6 @@ func _on_selection_changed(selected: Array) -> void:
 		var mat = selected[0].material as StandardMaterial3D
 		if mat:
 			$UI/PropertiesPanel/VBox/ColorPicker.color = mat.albedo_color
-
-func _ready():
-	selection_handler.selection_changed.connect(_on_selection_changed)
-	$UI/PropertiesPanel/VBox/ColorPicker.color_changed.connect(_on_color_changed)
 
 func _on_color_changed(color: Color) -> void:
 	for obj in selection_handler.selected_objects:
