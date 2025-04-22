@@ -109,7 +109,7 @@ render_target_update_mode = 4
 
 [node name="SpinCube" parent="UI/RotationIndicator/Viewport" instance=ExtResource("2_jyhfs")]
 
-[node name="Gizmo" type="EditorNode3DGizmo" parent="."]
+[node name="Gizmo" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73555, 0, 0)
 transform_mode = "LOCAL"
 snap_enabled = true
