@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://65s5oygvic5d"]
+[gd_scene load_steps=13 format=3 uid="uid://65s5oygvic5d"]
 
 [ext_resource type="Script" uid="uid://b5sy5ltkh6o14" path="res://scenes/main.gd" id="1_sugp2"]
-[ext_resource type="Script" uid="uid://e3f1ox6y6cvg" path="res://addons/Gizmo3DScript/gizmo3D.gd" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://bo4j3rpvppuh6" path="res://SpinCube.tscn" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://c3hn4jjt03sx6" path="res://scripts/SelectionHandler.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cdhel8vvc2t83" path="res://scenes/camera_root.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://e3f1ox6y6cvg" path="res://addons/Gizmo3DScript/gizmo3D.gd" id="3_tbgi4"]
 [ext_resource type="Shader" uid="uid://ciap7plrb4xcr" path="res://scenes/main.gdshader" id="5_tbgi4"]
 
 [sub_resource type="World3D" id="World3D_jyhfs"]
@@ -41,7 +42,7 @@ size = Vector2(2, 2)
 script = ExtResource("1_sugp2")
 
 [node name="SelectionHandler" type="Node" parent="."]
-script = ExtResource("uid://new_selection_handler_script")
+script = ExtResource("2_tefeu")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -59,32 +60,24 @@ offset_bottom = 31.0
 text = "Add Cube"
 
 [node name="PropertiesPanel" type="PanelContainer" parent="UI"]
-layout_mode = 1
-anchors_preset = 1
-anchor_right = 0.0
-offset_left = 10
-offset_top = 10
-offset_right = 210
-offset_bottom = 150
-theme = ExtResource("uid://new_theme")
 visible = false
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 150.0
+grow_horizontal = 0
 
 [node name="VBox" type="VBoxContainer" parent="UI/PropertiesPanel"]
-offset_left = 5
-offset_top = 5
-offset_right = 205
-offset_bottom = 145
+layout_mode = 2
 
 [node name="Header" type="Label" parent="UI/PropertiesPanel/VBox"]
-offset_right = 200
-offset_bottom = 25
+layout_mode = 2
 text = "Selected Objects: 0"
 horizontal_alignment = 1
 
 [node name="ColorPicker" type="ColorPicker" parent="UI/PropertiesPanel/VBox"]
-offset_top = 30
-offset_right = 200
-offset_bottom = 140
+layout_mode = 2
 presets_visible = false
 
 [node name="RotationIndicator" type="SubViewportContainer" parent="UI"]
@@ -111,13 +104,9 @@ render_target_update_mode = 4
 
 [node name="Gizmo" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73555, 0, 0)
-transform_mode = "LOCAL"
-snap_enabled = true
-snap_size = 0.25
-show_scale = true
-show_rotation = true
-show_translation = true
-script = ExtResource("2_0wfyh")
+script = ExtResource("3_tbgi4")
+use_local_space = true
+rotate_snap = 45.0
 metadata/_custom_type_script = "uid://e3f1ox6y6cvg"
 
 [node name="Model" type="Node3D" parent="."]
@@ -126,14 +115,13 @@ metadata/_custom_type_script = "uid://e3f1ox6y6cvg"
 script = ExtResource("3_sugp2")
 
 [node name="Camera" type="Camera3D" parent="Camera Root"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.00692)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 environment = SubResource("Environment_sugp2")
 projection = 1
 current = true
 size = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("QuadMesh_jyhfs")
 
 [connection signal="gui_input" from="UI" to="Camera Root" method="_on_control_gui_input"]

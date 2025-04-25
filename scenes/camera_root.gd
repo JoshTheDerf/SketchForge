@@ -38,10 +38,8 @@ func _on_spin_cube_update_target(target_rotation: Vector3) -> void:
 	
 	# Calculate position based on direction and distance
 	var direction = Vector3(0, 0, 1).rotated(Vector3.UP, target_rotation.y)
-	var target_position = direction * camera.position.length()
 	
 	# Align camera to face the center from the target direction
 	var target_transform = Transform3D.IDENTITY.looking_at(-direction, Vector3.UP)
 	
-	tween.tween_property(camera, "transform", target_transform, 0.5)
-	tween.parallel().tween_property(self, "rotation", target_rotation, 0.5)
+	tween.tween_property(self, "rotation", target_rotation, 0.5)

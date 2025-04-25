@@ -33,11 +33,7 @@ func _on_color_changed(color: Color) -> void:
 		if mat:
 			mat.albedo_color = color
 
-func _ready():
-	print("READY")
-
 func _on_cube_button_pressed() -> void:
-	print("BOOP")
 	var cube = Shapes["Cube"].instantiate()
 	$Model.add_child(cube)
 	$Gizmo.select(cube)

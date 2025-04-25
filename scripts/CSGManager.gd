@@ -10,7 +10,7 @@ static func perform_operation(op: Operation, base: CSGShape3D, modifier: CSGShap
 		Operation.UNION:
 			result.operation = CSGCombiner3D.OPERATION_UNION
 		Operation.SUBTRACT:
-			result.operation = CSGCombiner3D.OPERATION_SUBSTRACT
+			result.operation = CSGCombiner3D.OPERATION_SUBTRACTION
 		Operation.INTERSECT:
 			result.operation = CSGCombiner3D.OPERATION_INTERSECTION
 	
